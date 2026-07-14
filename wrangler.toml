@@ -1,13 +1,21 @@
-# Cloudflare Pages project configuration.
-# The D1 binding below is consumed by /functions/api/enroll.ts as `env.DB`.
+# Cloudflare Workers configuration (static assets + one API route).
+# `wrangler deploy` bundles worker/index.ts and uploads dist/ as assets,
+# and creates the Worker automatically on first deploy.
 name = "beleader-landing"
-compatibility_date = "2025-01-01"
-pages_build_output_dir = "dist"
+compatibility_date = "2026-07-14"
+main = "worker/index.ts"
+workers_dev = true
 
-# Create the database once with:
-#   wrangler d1 create beleader-enrollments
-# then paste the returned database_id below.
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+# Serve our styled 404 page when a non-asset path isn't matched.
+not_found_handling = "404-page"
+
+# D1 database for enrollment capture. Consumed by the Worker as env.DB.
+# Create the database first (dashboard or `wrangler d1 create`), then paste
+# its id below. See docs/runbook.md.
 [[d1_databases]]
 binding = "DB"
 database_name = "beleader-enrollments"
-database_id = "REPLACE_WITH_DATABASE_ID_FROM_WRANGLER"
+database_id = "b65f2e62-f8aa-4352-94cc-9a5308c1ed9f"

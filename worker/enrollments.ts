@@ -1,5 +1,5 @@
 // ── Data-access layer ────────────────────────────────────────────────
-// The ONLY file that knows how enrollments are stored. If you ever move
+// The ONLY module that knows how enrollments are stored. If you ever move
 // off Cloudflare D1 (to Postgres, MySQL, a CRM, etc.), change this file
 // and nothing else in the app needs to know.
 // See docs/adr/0002-d1-with-data-access-layer.md

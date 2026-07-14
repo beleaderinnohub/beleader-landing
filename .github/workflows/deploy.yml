@@ -1,8 +1,8 @@
-name: Deploy to Cloudflare Pages
+name: Deploy to Cloudflare Workers
 
-# CI/CD lives in GitHub Actions (not Cloudflare's built-in Git build) so the
-# pipeline is explicit and portable. Disable the Pages project's auto-build in
-# the Cloudflare dashboard to avoid double deploys.
+# CI/CD lives in GitHub Actions so the pipeline is explicit and portable.
+# `wrangler deploy` builds/uploads the static assets and the Worker, and
+# creates the Worker on first run.
 on:
   push:
     branches: [main]
@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -30,9 +30,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=beleader-landing
+          command: deploy

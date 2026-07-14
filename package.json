@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "pages:dev": "wrangler pages dev dist --d1=DB",
+    "preview": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
     "db:local": "wrangler d1 execute beleader-enrollments --local --file=./db/schema.sql",
     "db:remote": "wrangler d1 execute beleader-enrollments --remote --file=./db/schema.sql",
     "astro": "astro"
@@ -17,6 +17,7 @@
     "astro": "^5.0.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260708.1",
     "@tailwindcss/vite": "^4.0.0",
     "tailwindcss": "^4.0.0",
     "wrangler": "^4.0.0"

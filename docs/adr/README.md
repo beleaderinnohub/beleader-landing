@@ -6,7 +6,8 @@ decision changes, add a new ADR that supersedes the old one.
 
 | # | Decision | Status |
 | - | -------- | ------ |
-| [0001](0001-static-site-on-cloudflare-pages.md) | Static site on Cloudflare Pages, no containers | Accepted |
+| [0001](0001-static-site-on-cloudflare-pages.md) | Static site on Cloudflare Pages, no containers | Superseded by 0005 |
 | [0002](0002-d1-with-data-access-layer.md) | D1 for storage, behind a data-access layer | Accepted |
 | [0003](0003-github-organization.md) | Host the repo under a GitHub organization | Accepted |
-| [0004](0004-cloudflare-pages-over-github-pages.md) | Cloudflare Pages over GitHub Pages | Accepted |
+| [0004](0004-cloudflare-pages-over-github-pages.md) | Cloudflare Pages over GitHub Pages | Superseded by 0005 |
+| [0005](0005-workers-static-assets-over-pages.md) | Cloudflare Workers (static assets) over Pages | Accepted |

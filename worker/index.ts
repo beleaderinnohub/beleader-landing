@@ -1,10 +1,12 @@
-// Cloudflare Pages Function: POST /api/enroll
-// Receives a registration, validates it, and persists it via the
-// data-access layer. Optionally notifies you by email (see NOTE below).
-import { D1EnrollmentStore, type EnrollmentInput } from "../_lib/enrollments";
+/// <reference types="@cloudflare/workers-types" />
+// Worker entry for Be-leader Landing.
+// Static assets are served automatically (assets-first routing); this script
+// runs only for paths with no matching asset — chiefly POST /api/enroll.
+import { D1EnrollmentStore, type EnrollmentInput } from "./enrollments";
 
 interface Env {
   DB: D1Database;
+  ASSETS: Fetcher;
 }
 
 const json = (body: unknown, status = 200) =>
@@ -15,7 +17,7 @@ const json = (body: unknown, status = 200) =>
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+async function handleEnroll(request: Request, env: Env): Promise<Response> {
   let data: Partial<EnrollmentInput>;
   try {
     data = await request.json();
@@ -35,12 +37,25 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   try {
     const store = new D1EnrollmentStore(env.DB);
     const { id } = await store.save({ name, email, program, message });
-
     // NOTE: to also get an email per signup, add an email binding (e.g.
-    // MailChannels / Resend) and send it here. Wired up in a later step.
-
+    // Resend / MailChannels) and send it here. Wired up in a later step.
     return json({ ok: true, id }, 201);
-  } catch (err) {
+  } catch {
     return json({ error: "Could not save your registration. Please try again." }, 500);
   }
+}
+
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/api/enroll") {
+      if (request.method !== "POST") return json({ error: "Method not allowed." }, 405);
+      return handleEnroll(request, env);
+    }
+
+    // Any other non-asset path: hand back to the asset handler so the
+    // styled 404 page (not_found_handling = "404-page") is served.
+    return env.ASSETS.fetch(request);
+  },
 };
