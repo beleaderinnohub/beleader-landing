@@ -1,0 +1,25 @@
+---
+const links = [
+  { href: "#about", label: "About" },
+  { href: "#programs", label: "Programs" },
+  { href: "#gallery", label: "Work" },
+  { href: "#contact", label: "Contact" },
+];
+---
+<header class="sticky top-0 z-50 border-b border-navy-600/40 bg-navy-950/80 backdrop-blur">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <a href="/" class="font-display text-lg font-700 text-white">
+      Be-leader <span class="text-gold-500">Innovation Hub</span>
+    </a>
+    <div class="hidden items-center gap-8 md:flex">
+      {links.map((l) => (
+        <a href={l.href} class="font-sans text-sm text-muted-400 transition hover:text-ice-200">{l.label}</a>
+      ))}
+      <a
+        href="#enroll"
+        class="rounded-md bg-gold-500 px-4 py-2 font-sans text-sm font-600 text-navy-950 transition hover:brightness-95"
+      >Enroll now</a>
+    </div>
+    <a href="#enroll" class="rounded-md bg-gold-500 px-3 py-2 font-sans text-sm font-600 text-navy-950 md:hidden">Enroll</a>
+  </nav>
+</header>

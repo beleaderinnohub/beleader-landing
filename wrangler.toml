@@ -1,0 +1,13 @@
+# Cloudflare Pages project configuration.
+# The D1 binding below is consumed by /functions/api/enroll.ts as `env.DB`.
+name = "beleader-landing"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "dist"
+
+# Create the database once with:
+#   wrangler d1 create beleader-enrollments
+# then paste the returned database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "beleader-enrollments"
+database_id = "REPLACE_WITH_DATABASE_ID_FROM_WRANGLER"

@@ -1,0 +1,39 @@
+---
+// Signature motif: the commit-to-production pipeline the school teaches,
+// used here as the visual spine of the hero.
+const stages = ["Foundations", "Practitioner", "Production", "Mastery"];
+---
+<section class="relative overflow-hidden">
+  <div class="mx-auto max-w-6xl px-6 pb-20 pt-20 md:pt-28">
+    <p class="eyebrow mb-5">Cloud &amp; DevOps · from zero to mastery</p>
+    <h1 class="max-w-3xl font-display text-4xl font-700 leading-tight text-white md:text-6xl">
+      Learn to ship software the way
+      <span class="text-gold-500">production teams do.</span>
+    </h1>
+    <p class="mt-6 max-w-2xl font-sans text-lg text-muted-400">
+      Be-leader Innovation Hub runs hands-on bootcamps in Cloud and DevOps. You
+      build, deploy, and operate a real service across the full lifecycle —
+      guided by engineers who do this work every day.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-4">
+      <a href="#enroll" class="rounded-md bg-gold-500 px-6 py-3 font-sans font-600 text-navy-950 transition hover:brightness-95">Enroll now</a>
+      <a href="#programs" class="rounded-md border border-navy-600 px-6 py-3 font-sans font-600 text-ice-200 transition hover:border-gold-500">See the programs</a>
+    </div>
+
+    <!-- Pipeline motif -->
+    <div class="mt-16 rounded-xl border border-navy-600/50 bg-navy-900/60 p-6">
+      <p class="eyebrow mb-4">the journey</p>
+      <ol class="flex flex-col gap-4 md:flex-row md:items-center md:gap-2">
+        {stages.map((s, i) => (
+          <li class="flex items-center gap-2 md:flex-1">
+            <div class="flex-1 rounded-lg border border-navy-600/60 bg-navy-800/60 px-4 py-3">
+              <span class="font-mono text-xs text-gold-500">stage {String(i + 1).padStart(2, "0")}</span>
+              <p class="font-display font-600 text-white">{s}</p>
+            </div>
+            {i < stages.length - 1 && <span class="hidden text-gold-500 md:inline">→</span>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

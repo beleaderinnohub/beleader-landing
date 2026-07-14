@@ -1,0 +1,29 @@
+---
+const points = [
+  { k: "Hands-on, not slideware", v: "Every module ends with something you built and deployed yourself, not a quiz." },
+  { k: "The full lifecycle", v: "From a commit through CI/CD, containers, and infrastructure to running it in production with monitoring." },
+  { k: "Taught by practitioners", v: "Led by working Cloud and DevOps engineers, grounded in real production patterns and real incidents." },
+];
+---
+<section id="about" class="border-t border-navy-600/40 bg-navy-900">
+  <div class="mx-auto max-w-6xl px-6 py-20">
+    <p class="eyebrow mb-4">about</p>
+    <h2 class="max-w-2xl font-display text-3xl font-700 text-white md:text-4xl">
+      We turn beginners into engineers who can ship.
+    </h2>
+    <p class="mt-5 max-w-2xl font-sans text-muted-400">
+      Be-leader Innovation Hub is a training hub for Cloud and DevOps. We take
+      people from zero to job-ready through intensive, project-based cohorts —
+      the same tools, workflows, and judgement used by teams running software in
+      production today.
+    </p>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {points.map((p) => (
+        <div class="rounded-xl border border-navy-600/50 bg-navy-800/50 p-6">
+          <h3 class="font-display text-lg font-600 text-ice-200">{p.k}</h3>
+          <p class="mt-2 font-sans text-sm text-muted-400">{p.v}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

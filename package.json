@@ -1,0 +1,24 @@
+{
+  "name": "beleader-landing",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Landing page for Be-leader Innovation Hub — Cloud & DevOps training, from zero to mastery.",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "pages:dev": "wrangler pages dev dist --d1=DB",
+    "db:local": "wrangler d1 execute beleader-enrollments --local --file=./db/schema.sql",
+    "db:remote": "wrangler d1 execute beleader-enrollments --remote --file=./db/schema.sql",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0",
+    "wrangler": "^4.0.0"
+  }
+}

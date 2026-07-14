@@ -1,0 +1,35 @@
+---
+import { gallery } from "../data/gallery";
+---
+<section id="gallery" class="border-t border-navy-600/40 bg-navy-900">
+  <div class="mx-auto max-w-6xl px-6 py-20">
+    <p class="eyebrow mb-4">our work</p>
+    <h2 class="font-display text-3xl font-700 text-white md:text-4xl">Projects &amp; teaching</h2>
+    <p class="mt-4 max-w-2xl font-sans text-muted-400">
+      A sample of what we build and share. Swap these out for your own projects
+      in <code class="font-mono text-ice-200">src/data/gallery.ts</code>.
+    </p>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {gallery.map((g) => (
+        <article class="flex flex-col overflow-hidden rounded-xl border border-navy-600/50 bg-navy-800/50">
+          {g.image ? (
+            <img src={g.image} alt={g.title} class="aspect-video w-full object-cover" loading="lazy" />
+          ) : (
+            <div class="flex aspect-video w-full items-center justify-center bg-navy-700/40">
+              <span class="font-mono text-xs text-muted-400">{"</>"}</span>
+            </div>
+          )}
+          <div class="flex flex-1 flex-col p-6">
+            <h3 class="font-display text-lg font-600 text-white">{g.title}</h3>
+            <p class="mt-2 flex-1 font-sans text-sm text-muted-400">{g.blurb}</p>
+            {g.link && (
+              <a href={g.link} target="_blank" rel="noopener noreferrer" class="mt-4 font-mono text-sm text-gold-500 transition hover:text-ice-200">
+                {g.linkLabel ?? "Open"} →
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

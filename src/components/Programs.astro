@@ -1,0 +1,39 @@
+---
+import { programs } from "../data/programs";
+const badge: Record<string, string> = {
+  open: "bg-gold-500 text-navy-950",
+  upcoming: "border border-gold-500 text-gold-500",
+  waitlist: "border border-navy-600 text-muted-400",
+};
+const label: Record<string, string> = {
+  open: "Open for enrolment",
+  upcoming: "Upcoming",
+  waitlist: "Waitlist",
+};
+---
+<section id="programs" class="border-t border-navy-600/40">
+  <div class="mx-auto max-w-6xl px-6 py-20">
+    <p class="eyebrow mb-4">programs &amp; promotions</p>
+    <h2 class="font-display text-3xl font-700 text-white md:text-4xl">Bootcamps, by stage</h2>
+    <p class="mt-4 max-w-2xl font-sans text-muted-400">
+      Each program maps to a stage of the journey. Start wherever you are.
+    </p>
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      {programs.map((p) => (
+        <article class="flex flex-col rounded-xl border border-navy-600/50 bg-navy-900/60 p-6">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs uppercase tracking-widest text-gold-500">{p.stage}</span>
+            <span class={`rounded-full px-3 py-1 font-mono text-[11px] ${badge[p.status]}`}>{label[p.status]}</span>
+          </div>
+          <h3 class="mt-4 font-display text-xl font-600 text-white">{p.title}</h3>
+          <p class="mt-2 flex-1 font-sans text-sm text-muted-400">{p.summary}</p>
+          <div class="mt-5 flex items-center justify-between border-t border-navy-600/40 pt-4">
+            <span class="font-mono text-xs text-muted-400">{p.format}</span>
+            <span class="font-sans text-sm text-ice-200">{p.startNote}</span>
+          </div>
+          <a href="#enroll" class="mt-5 rounded-md bg-navy-700 px-4 py-2 text-center font-sans text-sm font-600 text-ice-200 transition hover:bg-navy-600">Register interest</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

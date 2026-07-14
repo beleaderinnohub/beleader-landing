@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* ── Be-leader Innovation Hub — Midnight Executive design tokens ──
+   Palette carried over from the PayPulse / MIT materials for brand
+   consistency. Signature motif: the CI/CD pipeline (zero → mastery). */
+@theme {
+  --color-navy-950: #0e1236;   /* deepest background */
+  --color-navy-900: #131845;   /* section background */
+  --color-navy-800: #1e2761;   /* primary navy / surfaces */
+  --color-navy-700: #2a3577;   /* raised surface */
+  --color-navy-600: #3a4577;   /* dividers / borders */
+  --color-gold-500: #f5b82e;   /* accent */
+  --color-ice-200:  #cadcfc;   /* soft headings / links */
+  --color-muted-400: #8b9dc3;  /* secondary text */
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-navy-950);
+  color: var(--color-ice-200);
+  font-family: var(--font-sans);
+}
+
+/* Respect users who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Utility: the monospace eyebrow used above section titles. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold-500);
+}
+
+/* Visible keyboard focus everywhere. */
+:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}

@@ -1,0 +1,76 @@
+---
+import { programs } from "../data/programs";
+---
+<section id="enroll" class="border-t border-navy-600/40 bg-navy-900">
+  <div class="mx-auto max-w-3xl px-6 py-20">
+    <p class="eyebrow mb-4">enrol</p>
+    <h2 class="font-display text-3xl font-700 text-white md:text-4xl">Register your interest</h2>
+    <p class="mt-4 font-sans text-muted-400">
+      Tell us which program fits and we will reach out with cohort dates and next steps.
+    </p>
+
+    <div id="enroll-form" class="mt-10 grid gap-5">
+      <div class="grid gap-2">
+        <label for="name" class="font-mono text-xs uppercase tracking-widest text-muted-400">Full name</label>
+        <input id="name" name="name" type="text" required
+          class="rounded-md border border-navy-600 bg-navy-800/60 px-4 py-3 text-ice-200 placeholder:text-muted-400/60 focus:border-gold-500" />
+      </div>
+      <div class="grid gap-2">
+        <label for="email" class="font-mono text-xs uppercase tracking-widest text-muted-400">Email</label>
+        <input id="email" name="email" type="email" required
+          class="rounded-md border border-navy-600 bg-navy-800/60 px-4 py-3 text-ice-200 placeholder:text-muted-400/60 focus:border-gold-500" />
+      </div>
+      <div class="grid gap-2">
+        <label for="program" class="font-mono text-xs uppercase tracking-widest text-muted-400">Program</label>
+        <select id="program" name="program"
+          class="rounded-md border border-navy-600 bg-navy-800/60 px-4 py-3 text-ice-200 focus:border-gold-500">
+          {programs.map((p) => <option value={p.id}>{p.title}</option>)}
+        </select>
+      </div>
+      <div class="grid gap-2">
+        <label for="message" class="font-mono text-xs uppercase tracking-widest text-muted-400">Anything else? (optional)</label>
+        <textarea id="message" name="message" rows="3"
+          class="rounded-md border border-navy-600 bg-navy-800/60 px-4 py-3 text-ice-200 placeholder:text-muted-400/60 focus:border-gold-500"></textarea>
+      </div>
+      <button id="enroll-submit" type="button"
+        class="rounded-md bg-gold-500 px-6 py-3 font-sans font-600 text-navy-950 transition hover:brightness-95 disabled:opacity-60">
+        Send registration
+      </button>
+      <p id="enroll-status" role="status" aria-live="polite" class="font-sans text-sm text-muted-400"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const btn = document.getElementById("enroll-submit") as HTMLButtonElement;
+  const status = document.getElementById("enroll-status") as HTMLElement;
+  const get = (id: string) => document.getElementById(id) as HTMLInputElement;
+
+  btn?.addEventListener("click", async () => {
+    const payload = {
+      name: get("name").value.trim(),
+      email: get("email").value.trim(),
+      program: get("program").value,
+      message: (document.getElementById("message") as HTMLTextAreaElement).value.trim(),
+    };
+    if (!payload.name || !payload.email) {
+      status.textContent = "Please add your name and email so we can reach you.";
+      return;
+    }
+    btn.disabled = true;
+    status.textContent = "Sending…";
+    try {
+      const res = await fetch("/api/enroll", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      status.textContent = "You're registered. We'll be in touch with cohort dates soon.";
+      (document.getElementById("enroll-form") as HTMLElement).querySelectorAll("input,textarea").forEach((el) => ((el as HTMLInputElement).value = ""));
+    } catch {
+      status.textContent = "Something went wrong sending that. Please try again, or email puc.chime@gmail.com.";
+      btn.disabled = false;
+    }
+  });
+</script>
